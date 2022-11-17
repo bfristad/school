@@ -4,7 +4,7 @@ import java.util.*;
 public class Richest {
     public static void main(String[] args) throws IOException{
 
-        int arraySize = 16;
+        int arraySize = 10001;
         int[] data = FillArray(args[0], arraySize); // fill the Array with the data from the text file
         int heapSize = data[0];
 
@@ -91,7 +91,6 @@ public class Richest {
         Scanner fileScanner = new Scanner(file); // initalize a file reader
         int[] data = new int[arraySize]; // initalize the array of size arraySize
         
-        //for(int i = 1; i < data.length; i++){ // iterate through the file and fill the array
         int i = 1;
         while(i < data.length && fileScanner.hasNextLine()) {
             int currentLine = Integer.valueOf(fileScanner.nextLine());
