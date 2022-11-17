@@ -11,31 +11,48 @@ public class TopoSort {
     }
 
     private static void DepthFirstSearch(LinkedList[] graph) {
-        System.out.println("0");
-
+        if(graph[0].size > 0) {
+            System.out.println("0");
+        }
+        LinkedList.Node node;
         boolean[] visited = new boolean[graph.length];
 
         for(int i = 0; i < graph.length; i++) {
-            if(graph[i].size != 0 && visited[i] == false) {
-                DepthFirstSearchHelper(graph, graph[i].head, visited);
-                visited[i] = true;
-            }
+            if(!visited[i]) {
+                visited[0] = true;
+                node = graph[i].head;
+                int j = 0;
+                while(j <= graph[i].size) {
+                    j++;
+                    if(graph[i].size != 0 && !visited[node.data]) {
+                        visited[i] = true;
+                        DepthFirstSearchHelper(graph, node, visited);
+
+                        if(node.next != null){
+                            node = node.next;
+                        }
+                    }
+                }
+            }   
         }
     }
 
     private static void DepthFirstSearchHelper(LinkedList[] graph, LinkedList.Node node, boolean[] visited) {
         time ++;
+        LinkedList.Node nextNode = graph[node.data].head;
         visited[node.data] = true;
         node.d = time;
-        System.out.println(node.data);
+        System.out.println(node.data + ", ");
         int i = 0;
         while(i < graph[node.data].size) {
             if(!visited[node.data]) {
-                DepthFirstSearchHelper(graph, graph[node.data].head, visited);
+                nextNode.p = nextNode.data;
+                DepthFirstSearchHelper(graph, nextNode, visited);
                 
             }
+            time++;
             node.f = time;
-            node = node.next;
+            nextNode = nextNode.next;
             i++;
         }
     }
@@ -95,7 +112,6 @@ class LinkedList {
     static class Node {
  
         int data;
-        String color = "WHITE";
         int nodeTime = 0; 
         int p;
         int f;
