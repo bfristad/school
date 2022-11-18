@@ -2,58 +2,37 @@ import java.io.*;
 import java.util.*;
 
 public class TopoSort {
-
-    public static int time;
     public static void main(String[] args) throws FileNotFoundException {
-        LinkedList[] graph = buildGraph("benjamin_fristad_bfristad_cscd320_prog4/data.txt");
-        printGraph(graph);
+        LinkedList[] graph = buildGraph(args[0]);
         DepthFirstSearch(graph);
     }
 
     private static void DepthFirstSearch(LinkedList[] graph) {
-        if(graph[0].size > 0) {
-            System.out.println("0");
-        }
         LinkedList.Node node;
-        boolean[] visited = new boolean[graph.length];
+        boolean[] isVisited = new boolean[graph.length];
 
         for(int i = 0; i < graph.length; i++) {
-            if(!visited[i]) {
-                visited[0] = true;
-                node = graph[i].head;
-                int j = 0;
-                while(j <= graph[i].size) {
-                    j++;
-                    if(graph[i].size != 0 && !visited[node.data]) {
-                        visited[i] = true;
-                        DepthFirstSearchHelper(graph, node, visited);
-
-                        if(node.next != null){
-                            node = node.next;
-                        }
-                    }
+            if(!isVisited[i]) {
+                System.out.print(i + ", ");
+                isVisited[i] = true;
+                if(graph[i].head != null){
+                    node = graph[i].head;
+                    DepthFirstSearchHelper(graph, node, isVisited);
                 }
-            }   
+            }  
         }
     }
 
-    private static void DepthFirstSearchHelper(LinkedList[] graph, LinkedList.Node node, boolean[] visited) {
-        time ++;
-        LinkedList.Node nextNode = graph[node.data].head;
-        visited[node.data] = true;
-        node.d = time;
-        System.out.println(node.data + ", ");
-        int i = 0;
-        while(i < graph[node.data].size) {
-            if(!visited[node.data]) {
-                nextNode.p = nextNode.data;
-                DepthFirstSearchHelper(graph, nextNode, visited);
-                
+    private static void DepthFirstSearchHelper(LinkedList[] graph, LinkedList.Node node, boolean[] isVisited) {
+        while(node != null) {
+            if(!isVisited[node.data]){
+                System.out.print(node.data + ", ");
             }
-            time++;
-            node.f = time;
-            nextNode = nextNode.next;
-            i++;
+            isVisited[node.data] = true;
+            if(graph[node.data].head != null && !isVisited[graph[node.data].head.data]) {
+                DepthFirstSearchHelper(graph, graph[node.data].head, isVisited);
+            }
+            node = node.next;
         }
     }
 
@@ -90,84 +69,40 @@ public class TopoSort {
         fileScanner.close(); // close the file
         return graph;
     }
-
-    private static void printGraph(LinkedList[] graph) {
-        for(int i = 0; i < graph.length; i++) {
-            System.out.print("Node: " + i + " Links [ ");
-            LinkedList.printList(graph[i]);
-            System.out.print("]\n");
-        }
-    }
-
 }
 
 class LinkedList {
  
-    Node head; // head of list
-    int size = 0; // size of list
+    Node head;
+    int size = 0; 
  
-    // Linked list Node.
-    // Node is a static nested class
-    // so main() can access it
     static class Node {
  
         int data;
-        int nodeTime = 0; 
-        int p;
-        int f;
-        int d;
         Node next;
  
-        // Constructor
-        Node(int d)
+        Node(int data)
         {
-            data = d;
+            this.data = data;
             next = null;
         }
     }
  
-    // Method to insert a new node
-    public static LinkedList insert(LinkedList list,
-                                    int data)
+    public static LinkedList insert(LinkedList list, int data)
     {
-        // Create a new node with given data
         Node new_node = new Node(data);
         new_node.next = null;
  
-        // If the Linked List is empty,
-        // then make the new node as head
         if (list.head == null) {
             list.head = new_node;
         }
         else {
-            // Else traverse till the last node
-            // and insert the new_node there
             Node last = list.head;
             while (last.next != null) {
                 last = last.next;
             }
- 
-            // Insert the new_node at last node
             last.next = new_node;
         }
- 
-        // Return the list by head
         return list;
-    }
-
-    // Method to print the LinkedList.
-    public static void printList(LinkedList list)
-    {
-        Node currNode = list.head;
- 
-        // Traverse through the LinkedList
-        while (currNode != null) {
-            // Print the data at current node
-            System.out.print(currNode.data + " ");
- 
-            // Go to next node
-            currNode = currNode.next;
-        }
- 
     }
 }
