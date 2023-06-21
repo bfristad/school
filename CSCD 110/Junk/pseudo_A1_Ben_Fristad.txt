@@ -1,0 +1,7 @@
+#Ask the user for 2 non-zero, integer numbers
+#Add the two numbers and display output
+#Subtract the second number from the first and display output
+#Multiply the 2 numbers and display output
+#Raise the first number to the second and display output
+#Divide the first number by the second using integer division and display output
+#Find the remainder of dividing the first number by the second and display output

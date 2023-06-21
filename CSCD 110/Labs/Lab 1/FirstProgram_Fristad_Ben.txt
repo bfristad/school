@@ -1,0 +1,27 @@
+Python 3.8.1 (tags/v3.8.1:1b293b6, Dec 18 2019, 22:39:24) [MSC v.1916 32 bit (Intel)] on win32
+Type "help", "copyright", "credits" or "license()" for more information.
+>>> 2 + 2
+4
+>>> 50-5*7
+15
+>>> (50-5*7)/3
+5.0
+>>> print('Hello World')
+Hello World
+>>> nm = input('What is your name: ')
+What is your name: Ben
+>>> print('My name is', nm)
+My name is Ben
+>>> print(x)
+Traceback (most recent call last):
+  File "<pyshell#6>", line 1, in <module>
+    print(x)
+NameError: name 'x' is not defined
+>>> x = 5
+>>> x + x + 3
+13
+>>> print(x)
+5
+>>> if x > 5
+SyntaxError: invalid syntax
+>>> 

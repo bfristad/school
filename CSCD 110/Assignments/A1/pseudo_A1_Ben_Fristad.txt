@@ -1,0 +1,6 @@
+#Asks the user for two non zero integers
+#Displays the sum of the two numbers
+#Displays the result of subtracting second from the first
+#Displays the product of the two integers
+#Displays the first number raised to teh second
+#Displays the quotient of the two with a remainder
